@@ -79,6 +79,8 @@ jobs:
     - cd sandbox_tests && cargo clippy -- -D warnings
   - stage: test
     script:
+    - cargo build
+    - cargo run --example configuration
     - cargo test
     - RUST_LOG=off cargo test --manifest-path sandbox_tests/Cargo.toml
 

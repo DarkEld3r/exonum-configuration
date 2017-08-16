@@ -13,15 +13,27 @@
 // limitations under the License.
 
 extern crate exonum;
-extern crate exonum_configuration;
+extern crate libloading;
 
-use exonum::helpers::fabric::NodeBuilder;
+use libloading::{Library, Symbol};
 
-use exonum_configuration::ConfigurationService;
+use exonum::helpers::fabric::{NodeBuilder, ServiceFactory};
+
+//use exonum_configuration::ConfigurationService;
 
 fn main() {
     exonum::helpers::init_logger().unwrap();
+
+    let configuration_lib = Library::new("target/debug/libexonum_configuration.so")
+        .expect("Unable to load library");
+    let get_factory: Symbol<extern fn() -> Box<ServiceFactory>> = unsafe {
+        configuration_lib
+            .get(b"get_service_factory")
+            .expect("Unable to find 'get_service_factory' function")
+    };
+    let service_factory = get_factory();
+
     NodeBuilder::new()
-        .with_service::<ConfigurationService>()
+        .with_service(service_factory)
         .run();
 }

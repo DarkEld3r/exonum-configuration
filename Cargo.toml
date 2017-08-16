@@ -14,8 +14,10 @@ description = "An Exonum service that provides functionality of modifying the gl
 [badges]
 travis-ci = { repository = "exonum/exonum-configuration" }
 
+[lib]
+crate-type = ["dylib"]
+
 [dependencies]
-exonum = "0.1"
 clap = "2.14"
 tempdir = "0.3.5"
 env_logger = "0.3"
@@ -28,3 +30,10 @@ router = "0.5.1"
 iron = "0.5.1"
 bodyparser = "0.7.0"
 params = "0.6.0"
+
+[dependencies.exonum]
+git = "https://github.com/darkeld3r/exonum.git"
+rev = "5d615cbe7621adb38d04476d778e337f2a81792e"
+
+[dev_dependencies.libloading]
+version = "0.4.0"

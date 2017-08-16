@@ -690,7 +690,12 @@ impl Service for ConfigurationService {
 }
 
 impl ServiceFactory for ConfigurationService {
-    fn make_service(_: &Context) -> Box<Service> {
+    fn make_service(&mut self, _: &Context) -> Box<Service> {
         Box::new(ConfigurationService::new())
     }
+}
+
+#[no_mangle]
+pub extern "C" fn get_service_factory() -> Box<ServiceFactory> {
+    Box::new(ConfigurationService::new())
 }
