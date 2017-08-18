@@ -33,7 +33,7 @@ params = "0.6.0"
 
 [dependencies.exonum]
 git = "https://github.com/darkeld3r/exonum.git"
-rev = "5d615cbe7621adb38d04476d778e337f2a81792e"
+rev = "be1a40ebcdcf16e52bfd5f11d7ea425d81eb0734"
 
 [dev_dependencies.libloading]
 version = "0.4.0"
