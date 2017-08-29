@@ -26,6 +26,7 @@ use exonum::blockchain::{Blockchain, StoredConfiguration, Schema};
 use exonum::storage::StorageValue;
 use exonum::node::{ApiSender, NodeChannel, TransactionSend};
 use exonum::encoding::serialize::json::reexport as serde_json;
+use exonum::helpers::Height;
 
 use super::{StorageValueConfigProposeData, TxConfigPropose, TxConfigVote, ConfigurationSchema};
 
@@ -135,7 +136,7 @@ impl PublicConfigApi {
             }
         }
         if let Some(from_height) = actual_from_filter {
-            if cfg.actual_from < from_height {
+            if cfg.actual_from < Height(from_height) {
                 return false;
             }
         }

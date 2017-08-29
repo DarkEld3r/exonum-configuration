@@ -26,14 +26,12 @@ fn main() {
 
     let configuration_lib = Library::new("target/debug/libexonum_configuration.so")
         .expect("Unable to load library");
-    let get_factory: Symbol<extern fn() -> Box<ServiceFactory>> = unsafe {
-        configuration_lib
-            .get(b"get_service_factory")
-            .expect("Unable to find 'get_service_factory' function")
+    let create_factory: Symbol<fn() -> Box<ServiceFactory>> = unsafe {
+        configuration_lib.get(b"create_service_factory").expect(
+            "Unable to find 'get_service_factory' function",
+        )
     };
-    let service_factory = get_factory();
+    let service_factory = create_factory();
 
-    NodeBuilder::new()
-        .with_service(service_factory)
-        .run();
+    NodeBuilder::new().with_service(service_factory).run();
 }

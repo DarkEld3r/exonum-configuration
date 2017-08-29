@@ -696,6 +696,6 @@ impl ServiceFactory for ConfigurationService {
 }
 
 #[no_mangle]
-pub extern "C" fn get_service_factory() -> Box<ServiceFactory> {
+pub fn create_service_factory() -> Box<ServiceFactory> {
     Box::new(ConfigurationService::new())
 }
