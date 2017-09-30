@@ -1,6 +1,6 @@
 [package]
 name = "exonum-configuration"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["The Exonum Team <exonum@bitfury.com>"]
 homepage = "https://exonum.com/doc/advanced/configuration-updater/"
 repository = "https://github.com/exonum/exonum-configuration"
@@ -18,14 +18,14 @@ travis-ci = { repository = "exonum/exonum-configuration" }
 crate-type = ["dylib"]
 
 [dependencies]
+# exonum = "0.2"
 clap = "2.14"
 tempdir = "0.3.5"
 env_logger = "0.3"
-log = "0.3"
+log = "0.3.0"
 serde = "1.0.0"
 serde_derive = "1.0.0"
-lazy_static = "0.2.1"
-
+lazy_static = "0.2.8"
 router = "0.5.1"
 iron = "0.5.1"
 bodyparser = "0.7.0"
@@ -33,7 +33,4 @@ params = "0.6.0"
 
 [dependencies.exonum]
 git = "https://github.com/darkeld3r/exonum.git"
-rev = "d89cff5daaac881db90d3bdb586133f688ef9de6"
-
-[dev_dependencies.libloading]
-version = "0.4.0"
+rev = "8fc36831d1cd6400f245eb166bee15bafa588c1a"

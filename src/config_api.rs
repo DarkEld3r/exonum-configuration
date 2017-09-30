@@ -128,7 +128,7 @@ impl PublicConfigApi {
     fn filter_cfg_predicate(
         cfg: &StoredConfiguration,
         previous_cfg_hash_filter: Option<Hash>,
-        actual_from_filter: Option<u64>,
+        actual_from_filter: Option<Height>,
     ) -> bool {
         if let Some(prev_ref) = previous_cfg_hash_filter {
             if cfg.previous_cfg_hash != prev_ref {
@@ -146,7 +146,7 @@ impl PublicConfigApi {
     fn get_all_proposes(
         &self,
         previous_cfg_hash_filter: Option<Hash>,
-        actual_from_filter: Option<u64>,
+        actual_from_filter: Option<Height>,
     ) -> Result<Vec<ApiResponseProposeHashInfo>, ApiError> {
         let snapshot = self.blockchain.snapshot();
         let configuration_schema = ConfigurationSchema::new(&snapshot);
@@ -189,7 +189,7 @@ impl PublicConfigApi {
     fn get_all_committed(
         &self,
         previous_cfg_hash_filter: Option<Hash>,
-        actual_from_filter: Option<u64>,
+        actual_from_filter: Option<Height>,
     ) -> Result<Vec<ApiResponseConfigHashInfo>, ApiError> {
         let snapshot = self.blockchain.snapshot();
         let general_schema = Schema::new(&snapshot);
@@ -224,8 +224,8 @@ impl PublicConfigApi {
         Ok(committed_configs)
     }
 
-    fn retrieve_params(map: &ParamsMap) -> Result<(Option<Hash>, Option<u64>), ApiError> {
-        let actual_from: Option<u64>;
+    fn retrieve_params(map: &ParamsMap) -> Result<(Option<Hash>, Option<Height>), ApiError> {
+        let actual_from: Option<Height>;
         let previous_cfg_hash: Option<Hash>;
         previous_cfg_hash = match map.find(&["previous_cfg_hash"]) {
             Some(&Value::String(ref hash_string)) => {
@@ -235,7 +235,7 @@ impl PublicConfigApi {
         };
         actual_from = match map.find(&["actual_from"]) {
             Some(&Value::String(ref from_str)) => {
-                Some(from_str.parse().map_err(|e: ParseIntError| {
+                Some(from_str.parse().map(Height).map_err(|e: ParseIntError| {
                     ApiError::IncorrectRequest(Box::new(e))
                 })?)
             }
