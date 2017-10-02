@@ -13,13 +13,13 @@
 // limitations under the License.
 
 extern crate exonum;
-extern crate exonum_configuration;
 
 use exonum::helpers::fabric::NodeBuilder;
-
-use exonum_configuration::ConfigurationService;
+use exonum::helpers::service_loader::DynamicServiceLoader;
 
 fn main() {
     exonum::helpers::init_logger().unwrap();
-    NodeBuilder::new().with_service(Box::new(ConfigurationService::new())).run();
+    let factory = DynamicServiceLoader::load("target/debug/libexonum_configuration.so")
+        .expect("Unable to load library");
+    NodeBuilder::new().with_service(factory).run();
 }

@@ -15,7 +15,7 @@ description = "An Exonum service that provides functionality of modifying the gl
 travis-ci = { repository = "exonum/exonum-configuration" }
 
 [lib]
-crate-type = ["dylib"]
+crate-type = ["rlib", "dylib"]
 
 [dependencies]
 # exonum = "0.2"

@@ -136,7 +136,7 @@ impl PublicConfigApi {
             }
         }
         if let Some(from_height) = actual_from_filter {
-            if cfg.actual_from < Height(from_height) {
+            if cfg.actual_from < from_height {
                 return false;
             }
         }
