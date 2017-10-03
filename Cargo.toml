@@ -33,4 +33,4 @@ params = "0.6.0"
 
 [dependencies.exonum]
 git = "https://github.com/darkeld3r/exonum.git"
-rev = "8fc36831d1cd6400f245eb166bee15bafa588c1a"
+rev = "ff40aff5bce073ae0d6d7b853cce64b0d227d640"

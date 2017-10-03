@@ -19,7 +19,10 @@ use exonum::helpers::service_loader::DynamicServiceLoader;
 
 fn main() {
     exonum::helpers::init_logger().unwrap();
-    let factory = DynamicServiceLoader::load("target/debug/libexonum_configuration.so")
+    let loader = DynamicServiceLoader::new("target/debug/libexonum_configuration.so")
         .expect("Unable to load library");
+    let factory = loader.service_factory().expect(
+        "Unable to get service factory"
+    );
     NodeBuilder::new().with_service(factory).run();
 }

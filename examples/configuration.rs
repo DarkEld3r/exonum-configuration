@@ -21,5 +21,7 @@ use exonum_configuration::ConfigurationService;
 
 fn main() {
     exonum::helpers::init_logger().unwrap();
-    NodeBuilder::new().with_service(Box::new(ConfigurationService::new())).run();
+    NodeBuilder::new()
+        .with_service(Box::new(ConfigurationService::new()))
+        .run();
 }
